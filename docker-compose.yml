@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+ wordpress:
+    image: wordpress
+    links:
+     - mariadb:mysql
+    restart: always
+    environment:
+     - WORDPRESS_DB_PASSWORD=wordpress
+    ports:
+     - "80:80"
+    volumes:
+     - ./html:/var/www/html
+ mariadb:
+    image: mariadb
+    restart: always
+    environment:
+     - MYSQL_ROOT_PASSWORD=wordpress
+     - MYSQL_DATABASE=wordpress
+    volumes:
+     - ./database:/var/lib/mysql
